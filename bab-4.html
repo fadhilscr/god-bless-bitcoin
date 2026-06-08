@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>document.documentElement.classList.add('js');</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bab 04: Anatomi Kriptografi Bitcoin — God Bless Bitcoin</title>
+<meta name="description" content="Bagaimana uang rakyat bekerja secara teknis." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="assets/diagrams.css" />
+</head>
+<body data-page="bab-4">
+<div class="scrollbar"></div>
+<header class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="index.html">
+      <span class="brand__mark btc">₿</span>
+      <span class="brand__txt">God Bless Bitcoin<small>Materi Pembelajaran</small></span>
+    </a>
+    <span class="nav__spacer"></span>
+    <nav class="nav__links" aria-label="Navigasi utama">
+      <a class="nav__link is-active" href="bab-1.html">Bab</a>
+      <a class="nav__link" href="glosarium.html">Glosarium</a>
+      <a class="nav__link" href="timeline.html">Timeline</a>
+      <a class="nav__link" href="tabel.html">Tabel</a>
+      <a class="nav__link" href="kuis.html">Kuis</a>
+      <a class="nav__link" href="faq.html">FAQ</a>
+    </nav>
+    <span class="nav__progress">Progres <b>0%</b><span class="nav__dot"><i></i></span></span>
+    <button class="menu-btn" data-open-menu aria-label="Buka daftar materi">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      Materi
+    </button>
+  </div>
+</header>
+
+<main class="page">
+  <section class="chap-band">
+    <span class="chap-band__ghost" aria-hidden="true">04</span>
+    <div class="wrap" data-reveal>
+      <span class="chap-band__no mono">BAB 04 · MATERI INTI</span>
+      <h1>Anatomi Kriptografi Bitcoin</h1>
+      <p class="chap-band__sub">Bagaimana uang rakyat bekerja secara teknis.</p>
+      <div class="chap-band__meta">
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> ± 8 menit baca</span>
+        <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg> Bab 04 dari 8</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="article">
+    <div class="wrap">
+      <div class="read">
+        <div class="callout c-obj" data-reveal>
+          <div class="callout__title"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="currentColor"/></svg></span>Tujuan Pembelajaran</div>
+          <ol>
+            <li>Menjelaskan masalah <strong>“double-spend”</strong> dan bagaimana blockchain menyelesaikannya.</li>
+            <li>Memahami batas pasokan <strong>21 juta koin</strong> sebagai inovasi inti.</li>
+            <li>Menjelaskan konsep kunci publik dan kunci privat melalui analogi.</li>
+          </ol>
+        </div>
+
+        <h2>Menghapus Perantara</h2>
+        <p>Sistem keuangan tradisional bergantung pada pihak ketiga tepercaya — bank sentral, bank komersial, kliring, prosesor pembayaran. Perantara ini mengekstraksi biaya, memperlambat penyelesaian, dan dapat menyensor pihak tertentu. Bitcoin mengeliminasi perantara melalui jaringan <strong>peer-to-peer</strong> murni, memungkinkan dua pihak asing bertransaksi langsung tanpa izin institusi.</p>
+        <h2>Memecahkan Masalah Double-Spend</h2>
+        <p>Terobosan ilmu komputer paling monumental Bitcoin adalah solusi terhadap <strong>“Double Spend Problem”</strong>. Sebelum Bitcoin, semua uang digital rentan duplikasi karena data komputer mudah disalin (<em>copy-paste</em>). Jika diterapkan pada uang, ekonomi akan hancur.</p>
+        <p>Bitcoin memecahkan ini tanpa otoritas sentral melalui <strong>Blockchain</strong> — buku besar universal dan abadi yang mencatat semua transaksi dalam “blok”, diperbarui serentak di puluhan ribu komputer (<em>node</em>) setiap sekitar 10 menit. Konsensus terdistribusi ini memastikan tak ada entitas yang dapat memalsukan transaksi atau membelanjakan unit yang sama dua kali.</p>
+        <figure class="dgm" data-reveal>
+          <div class="dgm__title">Blockchain — Blok yang Berantai</div>
+          <div class="chain">
+            <div class="blk genesis"><div class="blk__h"># BLOK 0 · GENESIS</div><div class="blk__tx"><span></span><span></span><span></span></div><div class="blk__hash">hash: 000a1f…</div></div>
+            <div class="blk"><div class="blk__h"># BLOK 1</div><div class="blk__tx"><span></span><span></span><span></span></div><div class="blk__hash">prev: 000a1f…<br>hash: 0072be…</div></div>
+            <div class="blk"><div class="blk__h"># BLOK 2</div><div class="blk__tx"><span></span><span></span><span></span></div><div class="blk__hash">prev: 0072be…<br>hash: 00d3c9…</div></div>
+            <div class="blk"><div class="blk__h"># BLOK 3 · ~10 mnt</div><div class="blk__tx"><span></span><span></span><span></span></div><div class="blk__hash">prev: 00d3c9…<br>hash: 00ff04…</div></div>
+          </div>
+          <figcaption class="dgm__cap">Tiap blok mengunci hash blok sebelumnya — mengubah satu transaksi berarti mengubah seluruh rantai di ribuan node.</figcaption>
+        </figure>
+        <h2>Batas 21 Juta &amp; Analogi Loker</h2>
+        <p>Properti paling revolusioner Bitcoin adalah <strong>batas pasokan tetap: maksimum 21 juta koin</strong> yang tak akan pernah dilampaui. Batas matematis ini membedakannya secara radikal dari fiat yang dicetak tanpa batas. Tak ada entitas — pemerintah terkuat sekalipun, bahkan pencipta Bitcoin — yang bisa mengubah angka 21 juta ini.</p>
+        <p>Dibanding emas, Bitcoin lebih portabel (dipindah secepat cahaya), dapat dibagi hingga <strong>100 juta satuan (satoshi)</strong>, dan mudah diverifikasi. Untuk menjelaskan kunci publik &amp; privat, film memakai <em>analogi loker sekolah</em>: alamat publik = nomor loker transparan yang bisa dilihat siapa saja untuk memasukkan uang; kunci privat = kombinasi gembok yang hanya diketahui pemilik untuk membukanya. Ini melahirkan <strong>instrumen pembawa (bearer instrument)</strong> digital yang tahan sensor.</p>
+
+        <figure class="dgm" data-reveal>
+          <div class="dgm__title">Batas Mutlak: 21 Juta</div>
+          <div class="capring">
+            <div class="capring__viz">
+              <svg viewBox="0 0 180 180"><circle cx="90" cy="90" r="78" fill="none" stroke="#26231f" stroke-width="12"/><circle cx="90" cy="90" r="78" fill="none" stroke="#F7931A" stroke-width="12" stroke-linecap="round" stroke-dasharray="490" stroke-dashoffset="40"/></svg>
+              <div class="val"><b>21<small style="font-size:.5em">JT</small></b><span>hard cap</span></div>
+            </div>
+            <div class="capring__txt">
+              <h4>Tak bisa diubah siapa pun</h4>
+              <p>Tak ada pemerintah, bank, bahkan pencipta Bitcoin yang bisa mencetak melebihi 21 juta koin. Inilah pembeda radikal dari fiat yang dicetak tanpa batas.</p>
+              <div class="div">1 ₿ = 100.000.000 satoshi — sangat dapat dibagi</div>
+            </div>
+          </div>
+        </figure>
+
+        <figure class="dgm" data-reveal>
+          <div class="dgm__title">Analogi Loker: Kunci Publik vs Privat</div>
+          <div class="locker">
+            <div class="lock">
+              <div class="lock__top"><span class="lock__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0"/></svg></span><div><b>Kunci Publik</b><span>Nomor loker</span></div></div>
+              <p>Alamat transparan yang boleh dilihat siapa saja untuk <strong>mengirim</strong> Bitcoin kepada Anda.</p>
+              <span class="lock__chip">bc1q… a8f3 · boleh dibagikan</span>
+            </div>
+            <div class="lock priv">
+              <div class="lock__top"><span class="lock__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L20 3M16 7l3 3"/></svg></span><div><b>Kunci Privat</b><span>Kombinasi gembok</span></div></div>
+              <p>Kode rahasia yang memberi kontrol mutlak untuk <strong>membuka &amp; membelanjakan</strong>. Hanya milik Anda — jangan pernah dibagikan.</p>
+              <span class="lock__chip">•••• rahasia · = kepemilikan</span>
+            </div>
+          </div>
+        </figure>
+
+        <div class="callout c-key">
+          <div class="callout__title"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="15" r="4"/><path d="M10.8 12.2L20 3M16 7l3 3"/></svg></span>Poin Kunci</div>
+          <ul>
+            <li><strong>Blockchain</strong> memecahkan double-spend tanpa perlu bank atau otoritas pusat.</li>
+            <li>Blok baru ditambahkan setiap <strong>~10 menit</strong>, diverifikasi puluhan ribu node global.</li>
+            <li>Batas mutlak <strong>21 juta koin</strong> = tak bisa diubah siapa pun.</li>
+            <li>1 Bitcoin = <strong>100.000.000 satoshi</strong> (sangat dapat dibagi).</li>
+            <li>Alamat publik = nomor loker; kunci privat = kombinasi gembok rahasia.</li>
+          </ul>
+        </div>
+        <figure class="quote">
+          <p>Tidak ada perbedaan mekanis antara kita berdua merakit mesin pencetak dolar di ruang bawah tanah dengan apa yang dilakukan The Fed — keduanya mendilusi daya beli semua orang.</p>
+          <cite>— Narasumber dalam film God Bless Bitcoin</cite>
+        </figure>
+
+        <details class="reflect" data-reveal>
+          <summary>
+            <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7c.6.5 1 1.3 1 2.1h6c0-.8.4-1.6 1-2.1A7 7 0 0012 2z"/></svg></span>
+            <b>Pertanyaan Refleksi</b>
+            <span class="chev"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6"/></svg></span>
+          </summary>
+          <div class="reflect__body">
+            <ol>
+              <li>Mengapa “batas 21 juta yang tak bisa diubah” dianggap sebagai fitur, bukan keterbatasan?</li>
+              <li>Apa konsekuensi dari memegang kunci privat sendiri — kebebasan sekaligus tanggung jawab apa?</li>
+            </ol>
+          </div>
+        </details>
+
+        <div class="read-toggle">
+          <button id="markRead" data-slug="bab-4">
+            <span class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg></span>
+            <span class="label">Tandai sudah dibaca</span>
+          </button>
+        </div>
+
+        <nav class="chap-nav" aria-label="Navigasi bab">
+        <a class="prev" href="bab-3.html"><span class="lbl">‹ Bab 03</span><span class="ttl">Distopia Pengawasan Digital</span></a>
+        <a class="next" href="bab-5.html"><span class="lbl">Bab 05 ›</span><span class="ttl">Imperatif Hak Asasi Manusia</span></a>
+      </nav>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <div>
+      <div class="foot__tag btc">₿ Don't trust — verify.</div>
+      <p class="foot__disc">Materi ini bersifat <strong>edukatif</strong> dan memaparkan sudut pandang film <em>God Bless Bitcoin</em> (2024). <strong>Bukan nasihat keuangan atau investasi.</strong> Pembaca didorong berpikir kritis dan memverifikasi sumber primer secara mandiri.</p>
+      <p class="foot__cred">Berdasarkan film karya Brian &amp; Kelly Estes · Premiere Bitcoin 2024, Nashville</p>
+    </div>
+    <nav class="foot__links" aria-label="Tautan kaki">
+      <a href="index.html">Beranda</a>
+      <a href="glosarium.html">Glosarium</a>
+      <a href="timeline.html">Timeline</a>
+      <a href="tabel.html">Tabel Perbandingan</a>
+      <a href="kuis.html">Kuis</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+  </div>
+</footer>
+<button class="focus-fab" id="focusFab" aria-label="Mode fokus baca">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
+  <span class="label">Mode fokus</span>
+</button>
+<script src="assets/image-slot.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

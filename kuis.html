@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<script>document.documentElement.classList.add('js');</script>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kuis Interaktif — God Bless Bitcoin</title>
+<meta name="description" content="Uji pemahaman Anda dengan 16 soal pilihan ganda dari materi film God Bless Bitcoin, lengkap dengan umpan balik langsung dan skor akhir." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="assets/diagrams.css" />
+</head>
+<body data-page="kuis">
+
+<div class="scrollbar"></div>
+<header class="nav">
+  <div class="nav__inner">
+    <a class="brand" href="index.html"><span class="brand__mark btc">₿</span><span class="brand__txt">God Bless Bitcoin<small>Materi Pembelajaran</small></span></a>
+    <span class="nav__spacer"></span>
+    <nav class="nav__links" aria-label="Navigasi utama">
+      <a class="nav__link" href="bab-1.html">Bab</a>
+      <a class="nav__link" href="glosarium.html">Glosarium</a>
+      <a class="nav__link" href="timeline.html">Timeline</a>
+      <a class="nav__link" href="tabel.html">Tabel</a>
+      <a class="nav__link is-active" href="kuis.html">Kuis</a>
+      <a class="nav__link" href="faq.html">FAQ</a>
+    </nav>
+    <span class="nav__progress">Progres <b>0%</b><span class="nav__dot"><i></i></span></span>
+    <button class="menu-btn" data-open-menu aria-label="Buka daftar materi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>Materi</button>
+  </div>
+</header>
+
+<main class="page">
+  <section class="phead">
+    <span class="phead__big" aria-hidden="true">?</span>
+    <div class="wrap">
+      <span class="eyebrow">Latihan · 16 Soal</span>
+      <h1>Kuis Interaktif</h1>
+      <p>Pilih jawaban untuk langsung melihat benar/salah beserta penjelasannya. Skor dihitung di akhir, dan kemajuan Anda tersimpan otomatis di browser ini.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:clamp(32px,5vw,52px)">
+    <div class="wrap" style="max-width:840px">
+      <div id="quizRoot"></div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__grid">
+    <div>
+      <div class="foot__tag btc">₿ Don't trust — verify.</div>
+      <p class="foot__disc">Materi ini bersifat <strong>edukatif</strong> dan memaparkan sudut pandang film <em>God Bless Bitcoin</em> (2024). <strong>Bukan nasihat keuangan atau investasi.</strong> Pembaca didorong berpikir kritis dan memverifikasi sumber primer secara mandiri.</p>
+      <p class="foot__cred">Berdasarkan film karya Brian &amp; Kelly Estes · Premiere Bitcoin 2024, Nashville</p>
+    </div>
+    <nav class="foot__links" aria-label="Tautan kaki">
+      <a href="index.html">Beranda</a>
+      <a href="glosarium.html">Glosarium</a>
+      <a href="timeline.html">Timeline</a>
+      <a href="tabel.html">Tabel Perbandingan</a>
+      <a href="bab-1.html">Mulai dari Bab 1</a>
+      <a href="faq.html">FAQ</a>
+    </nav>
+  </div>
+</footer>
+
+<script src="assets/image-slot.js"></script>
+<script src="assets/app.js"></script>
+<script src="assets/quiz.js"></script>
+</body>
+</html>
