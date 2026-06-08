@@ -196,8 +196,13 @@
 .imgslot image-slot { width: 100%; display: block; }
 .imgslot figcaption { margin-top: 12px; font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-faint); text-align: center; }
 
-/* image-slot base look (dark themed) */
-image-slot { --is-bg: var(--bg-2); border-radius: var(--radius); }
+/* image-slot base look (dark themed).
+   The web component hard-codes a light-bg empty state, but exposes ::part()
+   hooks — style those so the placeholder/ring/frame read on the dark page. */
+image-slot { border-radius: var(--radius); }
+image-slot::part(frame) { background: var(--bg-2); }
+image-slot::part(ring)  { border-color: var(--orange-line); }
+image-slot::part(empty) { color: var(--text-muted); }
 
 /* --------------------------------------------- homepage "what's inside" */
 .inside { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 14px; }
