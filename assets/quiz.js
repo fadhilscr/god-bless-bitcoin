@@ -1,7 +1,10 @@
 /* =========================================================================
-   God Bless Bitcoin — Quiz engine
+   God Bless Bitcoin — Quiz engine  v2
    Per-question: pick → instant feedback (benar/salah + jawaban benar) → next.
    Score ring at the end. Progress persists in localStorage.
+   v2: pilihan jawaban diacak per-soal via LCG seeded-shuffle.
+       Acakan STABIL dalam satu sesi (tekan "Sebelumnya" tidak mengubah posisi),
+       tapi BERBEDA setiap kali kuis diulang.
    ========================================================================= */
 (function () {
   "use strict";
@@ -57,16 +60,46 @@
       e: "Film menutup dengan siklus: Kebebasan → Penindasan → Revolusi → kembali ke Kebebasan." },
   ];
 
-  var KEY = "gbb_quiz_v1";
-  var state = { i: 0, answered: [], score: 0 };
+  /* ------------------------------------------------------------- v2 key */
+  var KEY = "gbb_quiz_v2"; /* bumped — state lama (tanpa seeds) otomatis invalid */
+
+  /* ------------------------------------ Park-Miller LCG seeded shuffle
+     Deterministik: seed yang sama → urutan yang sama setiap render.
+     Berbeda antar-sesi karena seed dibuat dari Math.random() saat init.  */
+  function lcgRng(seed) {
+    var s = ((seed % 2147483646) + 1); /* 1 – 2147483646 */
+    return function () {
+      s = (s * 16807) % 2147483647;
+      return s / 2147483647;
+    };
+  }
+  function shuffleIndices(seed) {
+    var rng = lcgRng(seed);
+    var idx = [0, 1, 2, 3];
+    for (var i = 3; i > 0; i--) {
+      var j = Math.floor(rng() * (i + 1));
+      var tmp = idx[i]; idx[i] = idx[j]; idx[j] = tmp;
+    }
+    return idx; /* permutasi posisi asli [0-3] */
+  }
+  function newSeeds() {
+    return QUESTIONS.map(function () { return Math.floor(Math.random() * 999983) + 1; });
+  }
+
+  /* ----------------------------------------------------------------- state */
+  var state = { i: 0, answered: [], score: 0, seeds: newSeeds() };
   try {
     var saved = JSON.parse(localStorage.getItem(KEY));
-    if (saved && saved.answered && saved.answered.length === QUESTIONS.length) state = saved;
+    /* hanya load jika state v2 lengkap (punya seeds) */
+    if (saved && Array.isArray(saved.seeds) && saved.seeds.length === QUESTIONS.length &&
+        Array.isArray(saved.answered)) {
+      state = saved;
+    }
   } catch (e) {}
 
   var root = document.getElementById("quizRoot");
   var LETTERS = ["A", "B", "C", "D"];
-  var TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
+  var TICK  = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 13l4 4L19 7"/></svg>';
   var CROSS = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>';
 
   function save() { try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
@@ -74,38 +107,43 @@
   function meter() {
     var done = state.answered.filter(function (x) { return x != null; }).length;
     return '<span class="quiz-meter">Terjawab <b>' + done + '</b> / ' + QUESTIONS.length +
-           ' · Skor <b>' + state.score + '</b></span>';
+           ' \xb7 Skor <b>' + state.score + '</b></span>';
   }
 
   function renderQuestion() {
-    var idx = state.i;
-    var Q = QUESTIONS[idx];
-    var picked = state.answered[idx]; // null/undefined = unanswered, else index
+    var idx  = state.i;
+    var Q    = QUESTIONS[idx];
+
+    /* shuffle pilihan menggunakan seed soal ini */
+    var order      = shuffleIndices(state.seeds[idx]); /* mis. [2,0,3,1] */
+    var shOpts     = order.map(function (k) { return Q.o[k]; }); /* teks teracak */
+    var correctPos = order.indexOf(Q.a);               /* posisi BARU jawaban benar */
+
+    var picked = state.answered[idx]; /* undefined / posisi shuffled yang dipilih */
     var locked = picked != null;
 
-    var opts = Q.o.map(function (text, oi) {
-      var cls = "opt";
-      var mark = "";
+    var opts = shOpts.map(function (text, si) {
+      var cls = "opt", mark = "";
       if (locked) {
-        if (oi === Q.a) { cls += " correct"; mark = TICK; }
-        else if (oi === picked) { cls += " wrong"; mark = CROSS; }
-        else cls += " dim";
+        if (si === correctPos)  { cls += " correct"; mark = TICK;  }
+        else if (si === picked) { cls += " wrong";   mark = CROSS; }
+        else                    { cls += " dim"; }
       }
-      return '<button class="' + cls + '" data-opt="' + oi + '"' + (locked ? " disabled" : "") + '>' +
-               '<span class="opt__key">' + LETTERS[oi] + '</span>' +
-               '<span class="opt__txt">' + text + '</span>' +
+      return '<button class="' + cls + '" data-opt="' + si + '"' + (locked ? " disabled" : "") + '>' +
+               '<span class="opt__key">'  + LETTERS[si] + '</span>' +
+               '<span class="opt__txt">'  + text + '</span>' +
                '<span class="opt__mark">' + mark + '</span>' +
              '</button>';
     }).join("");
 
     var expl = locked
-      ? '<div class="qexpl show"><b>' + (picked === Q.a ? "Benar ✓" : "Belum tepat") + '</b>' + Q.e + '</div>'
+      ? '<div class="qexpl show"><b>' + (picked === correctPos ? "Benar ✓" : "Belum tepat") + '</b>' + Q.e + '</div>'
       : '<div class="qexpl"></div>';
 
-    var prevDis = idx === 0 ? " disabled" : "";
-    var isLast = idx === QUESTIONS.length - 1;
+    var prevDis  = idx === 0 ? " disabled" : "";
+    var isLast   = idx === QUESTIONS.length - 1;
     var nextLabel = isLast ? "Lihat Hasil" : "Soal Berikutnya ›";
-    var nextDis = locked ? "" : " disabled";
+    var nextDis  = locked ? "" : " disabled";
 
     root.innerHTML =
       '<div class="quiz-head">' +
@@ -122,16 +160,16 @@
         expl +
       '</div>' +
       '<div class="quiz-nav">' +
-        '<button class="btn btn--ghost" id="qPrev"' + prevDis + '>‹ Sebelumnya</button>' +
-        '<button class="btn btn--primary" id="qNext"' + nextDis + '>' + nextLabel + '</button>' +
+        '<button class="btn btn--ghost"   id="qPrev"' + prevDis + '>‹ Sebelumnya</button>' +
+        '<button class="btn btn--primary" id="qNext"' + nextDis  + '>' + nextLabel + '</button>' +
       '</div>';
 
     root.querySelectorAll(".opt").forEach(function (b) {
       b.addEventListener("click", function () {
         if (state.answered[idx] != null) return;
-        var oi = parseInt(b.getAttribute("data-opt"), 10);
+        var oi = parseInt(b.getAttribute("data-opt"), 10); /* posisi shuffled */
         state.answered[idx] = oi;
-        if (oi === Q.a) state.score++;
+        if (oi === correctPos) state.score++;              /* bandingkan shuffled */
         save();
         renderQuestion();
       });
@@ -153,11 +191,11 @@
   function renderResult() {
     var total = QUESTIONS.length;
     var score = state.score;
-    var pct = Math.round(score / total * 100);
+    var pct   = Math.round(score / total * 100);
     var verdict, sub;
-    if (pct >= 85) { verdict = "Luar Biasa!"; sub = "Pemahaman Anda terhadap argumen film sangat solid. Saatnya berbagi diskusi."; }
-    else if (pct >= 60) { verdict = "Bagus!"; sub = "Fondasi Anda kuat. Tinjau ulang bab yang masih terasa kabur untuk menyempurnakan."; }
-    else { verdict = "Terus Belajar"; sub = "Beberapa konsep inti masih perlu diperdalam. Coba baca ulang bab terkait, lalu ulangi kuis."; }
+    if (pct >= 85) { verdict = "Luar Biasa!";    sub = "Pemahaman Anda terhadap argumen film sangat solid. Saatnya berbagi diskusi."; }
+    else if (pct >= 60) { verdict = "Bagus!";    sub = "Fondasi Anda kuat. Tinjau ulang bab yang masih terasa kabur untuk menyempurnakan."; }
+    else             { verdict = "Terus Belajar"; sub = "Beberapa konsep inti masih perlu diperdalam. Coba baca ulang bab terkait, lalu ulangi kuis."; }
 
     var R = 78, C = 2 * Math.PI * R, off = C * (1 - pct / 100);
 
@@ -186,11 +224,12 @@
 
     setTimeout(function () {
       var ring = document.getElementById("ringFill");
-      if (ring) ring.style.transition = "stroke-dashoffset 1.1s cubic-bezier(.2,.7,.2,1)", ring.style.strokeDashoffset = off;
+      if (ring) ring.style.transition = "stroke-dashoffset 1.1s cubic-bezier(.2,.7,.2,1)",
+               ring.style.strokeDashoffset = off;
     }, 200);
 
     document.getElementById("qRetry").addEventListener("click", function () {
-      state = { i: 0, answered: [], score: 0 };
+      state = { i: 0, answered: [], score: 0, seeds: newSeeds() }; /* seeds baru = acakan baru */
       save();
       renderQuestion();
       window.scrollTo({ top: 0, behavior: "smooth" });
