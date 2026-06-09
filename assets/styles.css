@@ -287,16 +287,16 @@ body.focus .scrollbar { top: 0; }
 .c-obj .callout__title { color: var(--orange-bright); }
 .c-obj .ic { background: var(--orange); color: #0A0A0A; }
 .c-obj ol { list-style: none; counter-reset: o; display: grid; gap: 12px; }
-.c-obj li { counter-increment: o; display: flex; gap: 14px; color: var(--text-soft); }
-.c-obj li::before { content: counter(o); font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; color: var(--orange); border: 1px solid var(--orange-line); border-radius: 7px; width: 26px; height: 26px; display: grid; place-items: center; flex: none; }
+.c-obj li { counter-increment: o; position: relative; padding-left: 40px; color: var(--text-soft); line-height: 1.7; }
+.c-obj li::before { content: counter(o); font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600; color: var(--orange); border: 1px solid var(--orange-line); border-radius: 7px; width: 26px; height: 26px; display: grid; place-items: center; position: absolute; left: 0; top: 0.1em; }
 
 /* key points — dark accent */
 .c-key { background: var(--bg-2); border: 1px solid var(--line-2); }
 .c-key .callout__title { color: var(--orange); }
 .c-key .ic { background: var(--orange-dark); color: #0A0A0A; }
 .c-key ul { list-style: none; display: grid; gap: 13px; }
-.c-key li { display: flex; gap: 13px; color: var(--text-soft); }
-.c-key li::before { content: "▸"; color: var(--orange); font-size: 1.05rem; line-height: 1.5; flex: none; }
+.c-key li { position: relative; padding-left: 20px; color: var(--text-soft); }
+.c-key li::before { content: "▸"; color: var(--orange); font-size: 1.05rem; line-height: 1.7; position: absolute; left: 0; top: 0; }
 .c-key li b, .c-key li strong { color: var(--text); }
 
 /* quote block */
@@ -476,6 +476,9 @@ mark { background: var(--orange-tint-2); color: var(--orange-bright); border-rad
 .foot__tag { font-family: var(--font-display); font-weight: 700; font-size: clamp(1.4rem, 4vw, 2.4rem); color: var(--orange); letter-spacing: -0.02em; }
 .foot__disc { max-width: 52ch; font-size: 0.86rem; color: var(--text-muted); }
 .foot__cred { font-family: var(--font-mono); font-size: 0.74rem; color: var(--text-faint); margin-top: 26px; }
+.foot__made { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-faint); margin-top: 8px; }
+.foot__made a { color: var(--text-muted); text-decoration: underline; text-underline-offset: 3px; transition: color 0.2s; }
+.foot__made a:hover { color: var(--orange); }
 .foot__links { display: flex; flex-direction: column; gap: 9px; }
 .foot__links a { font-size: 0.88rem; color: var(--text-soft); }
 .foot__links a:hover { color: var(--orange); }
