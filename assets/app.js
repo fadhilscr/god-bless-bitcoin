@@ -67,6 +67,12 @@
                 '<span class="drawer__txt"><b>' + ex.t + '</b><span>' + ex.s + '</span></span>' +
               '</a>';
     });
+    rows += '<div class="drawer__group">Situs Terkait</div>';
+    rows += '<a class="drawer__item" href="https://bitcoin-standard-one.vercel.app" target="_blank" rel="noopener noreferrer">' +
+              '<span class="drawer__num" style="color:var(--orange);font-size:1.1rem;line-height:1">&#x20BF;</span>' +
+              '<span class="drawer__txt"><b>The Bitcoin Standard</b><span>Buku Saifedean Ammous &middot; Materi Pembelajaran</span></span>' +
+              '<svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="flex:none;color:var(--text-faint)"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>' +
+            '</a>';
 
     var pct = Math.round(readCount() / CHAPTERS.length * 100);
     var html =

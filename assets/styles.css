@@ -140,6 +140,13 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
 }
 .nav__link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
 .nav__link.is-active { color: var(--orange); }
+/* cross-site nav pill */
+.nav__xlink { display: flex; align-items: center; gap: 7px; padding: 5px 12px 5px 8px; margin-left: 6px; border: 1px solid var(--orange-line); border-radius: 10px; text-decoration: none; transition: border-color .2s, background .2s; white-space: nowrap; }
+.nav__xlink:hover { border-color: var(--orange); background: var(--orange-tint); }
+.nav__xl-ico { font-size: 1rem; font-weight: 700; color: var(--orange); line-height: 1; flex: none; }
+.nav__xl-name { display: block; font-family: var(--font-display); font-size: 0.77rem; font-weight: 600; color: var(--text); line-height: 1.25; }
+.nav__xl-sub { display: block; font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; line-height: 1; margin-top: 1px; }
+.nav__xl-ext { flex: none; color: var(--text-faint); margin-left: 1px; }
 .nav__progress { font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
 .nav__progress b { color: var(--orange); }
 .nav__dot { width: 30px; height: 4px; border-radius: 9px; background: #26231f; overflow: hidden; }
