@@ -490,6 +490,18 @@ mark { background: var(--orange-tint-2); color: var(--orange-bright); border-rad
 .foot__links a { font-size: 0.88rem; color: var(--text-soft); }
 .foot__links a:hover { color: var(--orange); }
 
+/* ============================================================ YOUTUBE EMBED */
+.yt-embed { margin-top: 36px; }
+.yt-wrap {
+  position: relative; width: 100%; aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg); overflow: hidden;
+  border: 1px solid var(--line-2);
+  box-shadow: 0 0 0 1px var(--orange-line), 0 32px 72px -24px rgba(0,0,0,0.8);
+}
+.yt-wrap iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+.yt-note { display: flex; align-items: center; gap: 8px; margin-top: 14px; font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-faint); }
+.yt-note svg { flex: none; }
+
 /* floating ₿ glyph motion */
 @keyframes floatY {
   0%, 100% { transform: translateY(0) rotate(0deg); }
