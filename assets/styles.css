@@ -140,9 +140,16 @@ h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 700; line-height
 }
 .nav__link:hover { color: var(--text); background: rgba(255,255,255,0.05); }
 .nav__link.is-active { color: var(--orange); }
-/* cross-site nav pill */
-.nav__xlink { display: flex; align-items: center; gap: 7px; padding: 5px 12px 5px 8px; margin-left: 6px; border: 1px solid var(--orange-line); border-radius: 10px; text-decoration: none; transition: border-color .2s, background .2s; white-space: nowrap; }
-.nav__xlink:hover { border-color: var(--orange); background: var(--orange-tint); }
+/* cross-site nav dropdown */
+.nav__xdrop { position: relative; margin-left: 6px; }
+.nav__xdrop-btn { display: flex; align-items: center; gap: 7px; padding: 5px 10px 5px 8px; border: 1px solid var(--orange-line); border-radius: 10px; background: transparent; font-family: var(--font-display); font-size: 0.77rem; font-weight: 600; color: var(--text); cursor: pointer; transition: border-color .2s, background .2s; white-space: nowrap; }
+.nav__xdrop-btn:hover, .nav__xdrop.is-open .nav__xdrop-btn { border-color: var(--orange); background: var(--orange-tint); }
+.nav__xdrop-chev { flex: none; color: var(--text-faint); transition: transform .2s; }
+.nav__xdrop.is-open .nav__xdrop-chev { transform: rotate(180deg); }
+.nav__xdrop-panel { position: absolute; top: calc(100% + 8px); right: 0; min-width: 230px; background: var(--bg-2); border: 1px solid var(--line-2); border-radius: var(--radius-sm); box-shadow: 0 20px 48px -16px rgba(0,0,0,.7); padding: 6px; display: flex; flex-direction: column; gap: 2px; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .15s, transform .15s, visibility .15s; z-index: 200; }
+.nav__xdrop.is-open .nav__xdrop-panel { opacity: 1; visibility: visible; transform: translateY(0); }
+.nav__xdrop-item { display: flex; align-items: center; gap: 9px; padding: 9px 10px; border-radius: 8px; text-decoration: none; transition: background .15s; }
+.nav__xdrop-item:hover { background: var(--orange-tint); }
 .nav__xl-ico { font-size: 1rem; font-weight: 700; color: var(--orange); line-height: 1; flex: none; }
 .nav__xl-name { display: block; font-family: var(--font-display); font-size: 0.77rem; font-weight: 600; color: var(--text); line-height: 1.25; }
 .nav__xl-sub { display: block; font-family: var(--font-mono); font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; line-height: 1; margin-top: 1px; }
@@ -489,6 +496,8 @@ mark { background: var(--orange-tint-2); color: var(--orange-bright); border-rad
 .foot__links { display: flex; flex-direction: column; gap: 9px; }
 .foot__links a { font-size: 0.88rem; color: var(--text-soft); }
 .foot__links a:hover { color: var(--orange); }
+.foot__xcol { display: flex; flex-direction: column; }
+.foot__heading { font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 11px; }
 
 /* ============================================================ YOUTUBE EMBED */
 .yt-embed { margin-top: 36px; }
